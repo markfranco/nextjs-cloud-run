@@ -1,6 +1,8 @@
-import { people } from '../../../data'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default function personHandler({ query: { id } }, res) {
+import { Data, people } from '../../../data'
+
+export default function personHandler({ query: { id } }: NextApiRequest, res: NextApiResponse<Data | { message: string }>) {
   const filtered = people.filter((p) => p.id === id)
 
   // User with id exists

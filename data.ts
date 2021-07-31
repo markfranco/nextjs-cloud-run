@@ -1,4 +1,15 @@
-export const people = [
+export type Data = {
+  id: string // '1',
+  name: string // 'Luke Skywalker',
+  height: string // '172',
+  mass: string // '77',
+  hair_color: string // 'blond',
+  skin_color: string // 'fair',
+  eye_color: string // 'blue',
+  gender: string // 'male',
+}
+
+export const people: Data[] = [
   {
     id: '1',
     name: 'Luke Skywalker',
