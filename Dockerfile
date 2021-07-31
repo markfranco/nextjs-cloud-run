@@ -3,11 +3,16 @@ FROM node:14-alpine AS dependencies
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci --only=production
+
+# Install dependencies (including dev dependencies)
+RUN npm install
 
 # Rebuild the source code only when needed
 FROM node:14-alpine AS builder
 WORKDIR /app
+
+
+
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
 RUN npm run build
@@ -17,6 +22,11 @@ FROM node:14-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
+
+# Again get dependencies, but this time only install
+# runtime dependencies
+COPY package.json package-lock.json ./
+RUN npm ci --only=production
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
