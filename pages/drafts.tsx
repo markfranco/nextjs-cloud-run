@@ -35,8 +35,6 @@ type Props = {
 const Drafts: React.FC<Props> = (props) => {
   const [session] = useSession()
 
-  console.log("drafts session", session)
-
   if(!session) {
     return (
       <Layout>

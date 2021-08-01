@@ -111,7 +111,6 @@ const Header: React.FC = () => {
   }
 
   if (session) {
-    console.log("session", session)
     left = (
       <div className="left">
         <Link href="/">
