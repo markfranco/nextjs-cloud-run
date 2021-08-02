@@ -1,5 +1,5 @@
-import { getSession } from "next-auth/client"
-import prisma from "../../../lib/prisma"
+import { getSession } from 'next-auth/client'
+import prisma from '../../../lib/prisma'
 
 // POST /api/post
 // Required fields in body: title
@@ -12,8 +12,8 @@ export default async function handle(req, res) {
     data: {
       title,
       content,
-      author: { connect: { email: session?.user?.email } }
-    }
+      author: { connect: { email: session?.user?.email } },
+    },
   })
   res.json(result)
 }

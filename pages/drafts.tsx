@@ -1,9 +1,9 @@
-import React from "react"
-import { GetServerSideProps } from "next"
-import Layout from "../components/Layout"
-import Post, { PostProps } from "../components/Post"
-import { useSession, getSession } from "next-auth/client"
-import prisma from "../lib/prisma"
+import React from 'react'
+import { GetServerSideProps } from 'next'
+import Layout from '../components/Layout'
+import Post, { PostProps } from '../components/Post'
+import { useSession, getSession } from 'next-auth/client'
+import prisma from '../lib/prisma'
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req })
@@ -15,16 +15,16 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const drafts = await prisma.post.findMany({
     where: {
       author: { email: session.user.email },
-      published: false
+      published: false,
     },
     include: {
       author: {
-        select: { name: true }
-      }
-    }
+        select: { name: true },
+      },
+    },
   })
   return {
-    props: { drafts }
+    props: { drafts },
   }
 }
 
@@ -35,7 +35,7 @@ type Props = {
 const Drafts: React.FC<Props> = (props) => {
   const [session] = useSession()
 
-  if(!session) {
+  if (!session) {
     return (
       <Layout>
         <h1>My Drafts</h1>
@@ -71,7 +71,7 @@ const Drafts: React.FC<Props> = (props) => {
         }
       `}</style>
     </Layout>
-  );
+  )
 }
 
 export default Drafts

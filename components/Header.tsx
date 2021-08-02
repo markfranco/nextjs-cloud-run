@@ -1,19 +1,19 @@
-import React from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { signOut, useSession } from "next-auth/client"
+import React from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { signOut, useSession } from 'next-auth/client'
 
 const Header: React.FC = () => {
-  const router = useRouter();
+  const router = useRouter()
   const isActive: (pathname: string) => boolean = (pathname) =>
-    router.pathname === pathname;
+    router.pathname === pathname
 
   const [session, loading] = useSession()
 
   let left = (
     <div className="left">
       <Link href="/">
-        <a className="bold" data-active={isActive("/")}>
+        <a className="bold" data-active={isActive('/')}>
           Feed
         </a>
       </Link>
@@ -26,7 +26,7 @@ const Header: React.FC = () => {
           color: #000;
           display: inline-block;
         }
-        .left a[data-active="true"] {
+        .left a[data-active='true'] {
           color: gray;
         }
         a + a {
@@ -34,9 +34,9 @@ const Header: React.FC = () => {
         }
       `}</style>
     </div>
-  );
+  )
 
-  let right = null;
+  let right = null
 
   if (loading) {
     left = (
@@ -107,7 +107,7 @@ const Header: React.FC = () => {
           }
         `}</style>
       </div>
-    );
+    )
   }
 
   if (session) {
@@ -141,7 +141,7 @@ const Header: React.FC = () => {
           }
         `}</style>
       </div>
-    );
+    )
     right = (
       <div className="right">
         <p>
@@ -187,7 +187,7 @@ const Header: React.FC = () => {
           }
         `}</style>
       </div>
-    );
+    )
   }
 
   return (
@@ -202,7 +202,7 @@ const Header: React.FC = () => {
         }
       `}</style>
     </nav>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
