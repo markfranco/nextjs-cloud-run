@@ -11,7 +11,7 @@ RUN npm install
 FROM node:14-alpine AS builder
 WORKDIR /app
 
-
+RUN prisma generate
 
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
