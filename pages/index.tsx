@@ -1,39 +1,39 @@
-import React from "react";
-import { GetServerSideProps } from "next";
-import useSWR from "swr";
+import React from 'react'
+import { GetServerSideProps } from 'next'
+import useSWR from 'swr'
 
-import prisma from "../lib/prisma"
-import Layout from "../components/Layout";
-import Post, { PostProps } from "../components/Post";
-import Person from "../components/Person";
+import prisma from '../lib/prisma'
+import Layout from '../components/Layout'
+import Post, { PostProps } from '../components/Post'
+import Person from '../components/Person'
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const feed = await prisma.post.findMany({
     where: { published: true },
     include: {
       author: {
-        select: { name: true }
-      }
-    }
+        select: { name: true },
+      },
+    },
   })
-  return { props: { feed } };
-};
+  return { props: { feed } }
+}
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const fetcher = (url) => fetch(url).then((res) => res.json())
 
 type Props = {
-  feed: PostProps[];
-};
+  feed: PostProps[]
+}
 
 const Blog: React.FC<Props> = (props) => {
-  const { data, error } = useSWR("/api/people", fetcher);
+  const { data, error } = useSWR('/api/people', fetcher)
 
-  if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+  if (error) return <div>Failed to load</div>
+  if (!data) return <div>Loading...</div>
 
   return (
     <Layout>
-      <div className="page">
+      <div className="page bg-red-500">
         <h1>Public Feed</h1>
         <main>
           <h1>Next JS</h1>
@@ -63,7 +63,7 @@ const Blog: React.FC<Props> = (props) => {
         }
       `}</style>
     </Layout>
-  );
-};
+  )
+}
 
-export default Blog;
+export default Blog
