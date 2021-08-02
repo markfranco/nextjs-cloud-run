@@ -13,6 +13,9 @@ WORKDIR /app
 
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
+
+RUN prisma generate
+
 RUN npm run build
 
 # Production image, copy all the files and run next
@@ -25,8 +28,6 @@ ENV NODE_ENV production
 # runtime dependencies
 COPY package.json package-lock.json ./
 RUN npm ci --only=production
-
-RUN prisma generate
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
