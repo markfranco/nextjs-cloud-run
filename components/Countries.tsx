@@ -1,5 +1,4 @@
 import { useQuery, gql } from '@apollo/client'
-import styles from '../styles/Home.module.css'
 
 const QUERY = gql`
   query Countries {
@@ -50,9 +49,9 @@ export default function Countries(): JSX.Element {
   const countries = data.countries.slice(0, 4)
 
   return (
-    <div className={styles.grid}>
+    <div>
       {countries.map((country) => (
-        <div key={country.code} className={styles.card}>
+        <div key={country.code}>
           <h3>
             <a
               href="#country-name"
