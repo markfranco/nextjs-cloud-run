@@ -11,8 +11,6 @@ RUN npm install
 FROM node:14-alpine AS builder
 WORKDIR /app
 
-RUN prisma generate
-
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
 RUN npm run build
@@ -27,6 +25,8 @@ ENV NODE_ENV production
 # runtime dependencies
 COPY package.json package-lock.json ./
 RUN npm ci --only=production
+
+RUN prisma generate
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
